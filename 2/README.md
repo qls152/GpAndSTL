@@ -27,9 +27,13 @@ concept的条件：一组有效表达式
 主要包括五种iterator
 
 Input Iterator: 迭代器只能移动，不能比较两个迭代器的值，且只读
+
 Output Iterator: 迭代器只能移动，不能比较两个迭代器的值，且只写
+
 Forward Iterator: 可读可写，可比较两个迭代器的值，但不能反向移动
+
 Bidirectional Iterator: 具备Forward迭代器的所有功能，且能够反向移动
+
 Random Access Iterator: 具备双向迭代器的所有功能，在某些场景下，时间复杂度好过双向迭代器
 
 ## Refinement(精炼，强化)
