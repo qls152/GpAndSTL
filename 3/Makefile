@@ -1,4 +1,4 @@
-src = value_type.cc
+src = main.cc
 all:main
 
 main:

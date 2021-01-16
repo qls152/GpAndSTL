@@ -12,7 +12,7 @@
 
 **Iterator Traits 模版类型萃取**
 
-关于上述两者的实现可参考value_type.cc
+关于上述两者的实现可参考value_type.h
 
 ## Difference Type(差距型别)
 
@@ -23,3 +23,35 @@
 所谓差距型别的值：区间[p1, p2)的迭代器的个数。
 
 ## Reference Type 和 Pointer Type
+
+## 算法处理与Iterator Tags
+
+算法对于某种iterator concept有个实用定义，对于该concept的refinement却有另一种不同的定义。
+
+譬如，如果某个算法应用了Forward Iterators，但某些时候我们需要针对Random Access Iterators写
+
+一个特别版本，使某些操作（operator<, operator+=)的复杂度为O(1).
+
+**此时我们需要做的是对concepts进行重载**
+
+**以C++型别系统来表示concepts,可以达到以函数重载的方式实现concepts重载**
+
+该方式主要由两步构成：
+
+1. 为每一个iterator concept定义一个专属型别，作为tag之用，需要保证该型别唯一
+
+2. 将算法进行重载--以上述所谓的标签型别（tag types)作为识别凭借
+
+此处以stl中的advance为例子，代码与说明参考advance.h
+
+## 完整的iterator_traits实现
+
+具体参考iterator_traits.h
+
+使用iterator_traits的两个条件：
+
+1. 你必须返回值，或是声明临时变量，而其型别与iterator的value type或difference type或
+
+reference type 或者pointer type一致
+
+2. 你的算法类似advance，必须根据iterator的分类而决定不同的实现方法
