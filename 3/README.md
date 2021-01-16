@@ -87,3 +87,5 @@ iterators时，应当将iterator concepts视为一份清单。 该清单对于�
 
 4. 面对Forward iterator，你应该遵守所谓**iterator相等（equality）**的基本原则：只有当两个iterators指向相同的对象，他们才被视为相等。
 
+自定义一个node_wrap迭代器，需要实现constant和mutable版本，具体实现参考 node_wrap.h
+
