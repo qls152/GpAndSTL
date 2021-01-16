@@ -14,7 +14,7 @@
 
 关于上述两者的实现可参考value_type.h
 
-## Difference Type(差距型别)
+### Difference Type(差距型别)
 
 如果T是Random Access Iterator的一个model，而p1和p2为T的值，则p2-p1便是p1到p2之间的距离，该
 
@@ -22,9 +22,9 @@
 
 所谓差距型别的值：区间[p1, p2)的迭代器的个数。
 
-## Reference Type 和 Pointer Type
+### Reference Type 和 Pointer Type
 
-## 算法处理与Iterator Tags
+### 算法处理与Iterator Tags
 
 算法对于某种iterator concept有个实用定义，对于该concept的refinement却有另一种不同的定义。
 
@@ -44,7 +44,7 @@
 
 此处以stl中的advance为例子，代码与说明参考advance.h
 
-## 完整的iterator_traits实现
+### 完整的iterator_traits实现
 
 具体参考iterator_traits.h
 
@@ -55,3 +55,35 @@
 reference type 或者pointer type一致
 
 2. 你的算法类似advance，必须根据iterator的分类而决定不同的实现方法
+
+
+## 3.2 定义新组件
+
+Iterators和算法都是根据iterators的条件而编写。
+
+由于算法和iterator types以iterator concept作为其接口，因此每当你实现新的算法或者新的
+
+iterators时，应当将iterator concepts视为一份清单。 该清单对于新的迭代器而言，代表着
+
+**应该提供的功能**， 对于新的算法而言，代表着**应该存在的功能**。
+
+基本上，迭代器必须能够做两件事
+
+1. 它必须指向某物
+
+2. 它必须能够遍历任何一个有效区间
+
+定义新的迭代器的建议
+
+1. 注意iterator应该是constant或者mutable。两者的主要差别在于其reference type和pointer
+
+ type是T&和T*，或者是const T&和const T*.
+
+ **constant iterator 和mutable iterator的value type都为T，且mutable iterator可以转为constant iterator，反之不成立**
+
+2. 你必须确定iterator_traits能够正确作用于你的iterator。
+
+3. 尽可能提供较多的iterator 操作行为，除非对效率有影响。
+
+4. 面对Forward iterator，你应该遵守所谓**iterator相等（equality）**的基本原则：只有当两个iterators指向相同的对象，他们才被视为相等。
+
