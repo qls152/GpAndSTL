@@ -82,4 +82,21 @@ STL主要提供三种Sequence class: vector, list和deque。
 
 其中主要差异在于它们所提供的iterator种类，iterator无效语义(**在什么情况下，会导致先前取得的iterator失效**)以及insert与erase的复杂度。
 
-关于安插语义(insertion)和覆盖语义(overwrite) 可参考sequence_container.h
+关于安插语义(insertion)和覆盖语义(overwrite) 可参考sequence_container.h。
+
+Sequence并不强求特定顺序，你可以在任意位置安插元素至sequence container时。
+
+Associate Container也是一种可变大小Container，其内元素总会以某种特定规则来排列。安插某元素至该类container，会被容器自动安插至合适的位置。
+
+Associate Container的基本操作行为是查询，安插和消除。针对这些行为，关联式容器提供了相应的成员函数并且这些成员函数都具有良好的效率，平均是O(logN)。
+
+Asscoiate Container的详细描述如下：
+
+1. 其每个元素均有一个key，元素依据该key被查询。每个key均有一个key type，其对应一个value type。 
+
+2. STL定义了两种关联式容器，Simple Associate container和Pair Associate container.
+
+3. Simple Associate container的value_type和key_type相同，元素的key就是元素自身，由于key是不可变的，因此Simple元素是不可变的。
+
+4. Pair Associate container的value_type形式为pair<const Key, T>. 其value是个pair，key是pair的第一个成员。
+
