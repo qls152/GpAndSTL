@@ -53,4 +53,27 @@ tempalte <typename InputInterator, typename ForwardIterator>
 ForwardIterator 
 uninitialize_copy(InputIterator first, InputIterator last, ForwardIterator result);
 
-算法uninitialized_copy能够将内存分配与object的构造行为分离。 如果输出区间[result, result + (last-first)]中的每一个iterator都指向未初始化局部，则uninitialized_copy
+算法uninitialized_copy能够将内存分配与object的构造行为分离。 如果输出区间[result, result + (last-first)]中的每一个iterator都指向未初始化空间，则uninitialized_copy会使用拷贝构造函数为[first, last]的所有objects产生一份副本，放在输出区间中。
+
+换句话说：针对输入区间中每一个iterator i, 该算法会调用construct(&*(result+i-first), \*i),产生\*i的副本，放在输出区间相应位置上。
+
+关于该算法的测试可参考：stl_memory.h。
+
+**uninitialized_fill**
+
+同上述uninitialized_copy一样，能够将内存分配和对象的构造行为分离开来。
+
+乳沟range [first, last]中的每个iterators都指向未初始化的内存，那么uninitialized_fill会在该range中产生x的复制品。
+
+上述两者均具有commit或者callback语义。
+
+该算法的测试可参考：stl_memory.h。
+
+**uninitialized_fill_n**
+
+同uninitialized_fill一样，主要区别在于，该算法操作与**一个iterator加上一个元素个数所表现的range**身上。
+
+如果[first, first+n)中的每一个iterators都指向未初始化的内存，该算法会调用拷贝构造函数，在该range上产生x的复制品。
+
+其测试可参考stl_memory.h。
+

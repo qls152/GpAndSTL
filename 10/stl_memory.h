@@ -40,3 +40,56 @@ void test_destory() {
 
     std::cout << std::endl;
 }
+
+// uninitialized_copy 会使用拷贝构造函数
+void test_uninitialized_copy() {
+    class Int {
+    public:
+        Int(int x) : val_(x) {}
+        // Int不具有默认构造函数
+        int get() { return val_; }
+    private:
+        int val_;
+    };
+
+    int A[] = {1, 2, 3, 4, 5, 6, 7};
+    const auto N = sizeof(A) / sizeof(int);
+
+    Int* A1 = (Int*) malloc(N * sizeof(Int));
+    std::uninitialized_copy(A, A + N, A1);
+
+    for (size_t i = 0; i < N; ++i) {
+        std::cout << A1[i].get() << " ";
+    }
+
+    std::cout << std::endl;
+}
+
+void test_uninitialized_fill() {
+    class Int {
+    public:
+        Int(int x) : val_(x) {}
+        // Int不具有默认构造函数
+        int get() { return val_; }
+    private:
+        int val_;
+    };
+
+    Int val(46);
+    const int N = 13;
+    Int *A = (Int*)malloc(N * sizeof(Int));
+    std::uninitialized_fill(A, A + N, val);
+    for (size_t i = 0; i < N; ++i) {
+        std::cout << A[i].get() << " ";
+    }
+    std::cout << std::endl;
+
+    Int *A1 = (Int*)malloc(N * sizeof(Int));
+    std::uninitialized_fill_n(A1, N, val);
+
+    for (size_t i = 0; i < N; ++i) {
+        std::cout << A1[i].get() << " ";
+    }
+    std::cout << std::endl;
+
+}
