@@ -93,3 +93,21 @@ void test_uninitialized_fill() {
     std::cout << std::endl;
 
 }
+
+// get_temporary_buffer<T>(len), 返回一个缓冲区
+// 该缓冲区针对T object排列并足以包含len个T对象。
+void test_get_temporary_buffer() {
+    auto ret_pair = std::get_temporary_buffer<int>(10);
+    int *buf = ret_pair.first;
+    auto N = ret_pair.second;
+
+    std::uninitialized_fill_n(buf, N, 42);
+
+    for (size_t i = 0; i < N; ++i) {
+        std::cout << buf[i] << " ";
+    }
+
+    std::cout << std::endl;
+    std::return_temporary_buffer(buf);
+
+}

@@ -7,6 +7,7 @@ int main() {
 //    test_construct();
 //    test_destory();
 //    test_uninitialized_copy();
-    test_uninitialized_fill();
+//    test_uninitialized_fill();
+    test_get_temporary_buffer();
     return 0;
 }

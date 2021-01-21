@@ -77,3 +77,22 @@ uninitialize_copy(InputIterator first, InputIterator last, ForwardIterator resul
 
 其测试可参考stl_memory.h。
 
+## 临时缓冲区
+
+某些算法，譬如stable_sort和inplace_merge，是所谓“adaptive"(具有自适应能力)。
+
+它们会尝试分配额外的临时空间来放置中间结果。若果分配成宫，这些算法便会变换为一种有较佳运行期复杂度的方法。
+
+stl提供了get_temporary_buffer分配未初始化内存，利用return_temporary_buffer归还该内存块。
+
+**注意：如果一个函数以get_temporary_buffer分配内存，则在该函数返回前必须调用return_temporary_buffer归还内存**
+
+template <typename T>
+pair<T*, ptrdiff_t> get_temporary_buffer(ptrdiff_t len);
+
+函数get_temporary_buffer可分配临时性内存空间。参数len是欲获得缓冲区大小（元素个数）。  
+
+返回值是一个pair，第一个元素是指针，指向分配所得的内存，第二元素表示该缓冲区大小。
+
+关于get_temporary_buffer的测试可参考stl_memory.h
+
