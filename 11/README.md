@@ -63,4 +63,55 @@ find_first_of有两个版本，差别在于比较元素相等的方式。 第一
 
 其测试用例参考liner_serach.h。
 
+## 子序列匹配
+
+### search
+
+template <typename ForwardIterator1, typename ForwardIterator2>
+orwardIterator1 search(orwardIterator1 first1, orwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2);
+
+template <typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
+orwardIterator1 search(orwardIterator1 first1, orwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate binary_pred);
+
+该算法和find、find_if类似，可以在某个区间进行查找。区别在于find与find_if查找单个元素，而search查找的是整个子区间。
+
+search算法试图在[first1, last1)内寻找[first2, last2).也就是说search会寻找[first1, last1)的某个子序列，使得该序列与[first2,last2)进行元素一一比较是否相同。如果相同，search返回一个指向该子序列的头iterator，如果子序列不存在，则返回last1.
+
+版本一会返回[first1, last1 - (last2 - first2)]中的第一个iterator i，使得满足[first2, last2)中的每个iterator j，*(i + j - first2) == *j。
+
+版本一利用operator==比较两个元素，版本二利用函数对象binary_pred比较两个元素。其他如版本一一样。
+
+该算法测试参考subsequence_match.h。
+
+### find_end
+
+template <typename ForwardIterator1, typename ForwardIterator2>
+orwardIterator1 search(orwardIterator1 first1, orwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2);
+
+template <typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
+orwardIterator1 search(orwardIterator1 first1, orwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate binary_pred);
+
+find_end更精确的名字应该叫search_end.
+
+同search实现的功能基本类似，区别在于search寻找的是第一个这样的子序列，find_end寻找的是最后一个这样的子序列。
+
+find_end的返回值与search相似，此处不赘述。
+
+关于find_end的测试可以参考test_search函数，基本一样。
+
+### search_n
+
+template <typename ForwardIterator, typename Integer, typename T>
+ForwardIterator search_n(ForwardIterator first, ForwardIterator last, Integer count, const T& value);
+
+template <typename ForwardIterator, typename Integer, typename T, typename BinaryPredicate>
+ForwardIterator search_n(ForwardIterator first, ForwardIterator last, Integer count, const T& value, BinaryPredicate binary_pred);
+
+该算法查找[first, last)之中由count个相邻元素形成的子序列，其中所有元素都等于value。它返回一个iterator，指向这个子序列的起始点。 如果该子序列不存在，则返回last.
+
+**注意：count允许为0. 当count为0时，search_n一定成功且返回值一定是first**
+
+关于search_n的测试可参考subsequence_match.h。
+
+
 
