@@ -12,6 +12,8 @@ int main() {
 //    test_search_n();
 //    test_count();
 //    test_count_if();
-    test_equal();
+//    test_equal();
+//    test_mismatch();
+    test_lexicographical_compare();
     return 0;
 }

@@ -155,6 +155,46 @@ bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, B
 
 关于该算法测试可参考compare_range.h
 
+### mismatch
+
+template <typename InputIterator1, typename InputIterator2>
+pair<InputIterator1, InputIterator2>
+mismatch(InputIterator1 first1, InputIterator1 last2, InputIterator2 first2);
+
+template <typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
+pair<InputIterator1, InputIterator2>
+mismatch(InputIterator1 first1, InputIterator1 last2, InputIterator2 first2, BinaryPredicate binary_pred);
+
+该算法返回[first1, last1)与[first2, first2 + last1-first1)之间第一个**元素值不等**的位置。 该位置由[first1, last1)的一个iterator和[first2, first2 + last1-first1)的一个iterator构成，mismatch以一个pair的形式返回这该位置。
+
+同equal，mismatch也有两个版本，这两个版本的区别与equal类似，不赘述。
+
+关于该算法的测试可参考compare_range.h。
+
+### lexicographical_compare
+
+template <typename InputIterator1, typename InputIterator2>
+bool lexicographical_compare(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2);
+
+template <typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
+bool lexicographical_compare(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2, BinaryPredicate binary_pred);
+
+该算法以字典排序法比较两个区间。
+
+字典排序比较方式指字典式(一个元素接着一个元素)的排序。
+也就是说如果 *first1小于 *first2, 则[first1, last1)小于[first2, last2)，如果 *first1 大于 *first2, 则[first1, last1) 大于[first2, last2)。如果两个开头元素相等，则比较下一个元素，以此类推。 如果第一个range内的每个元素都等于第二range内相对元素，则第二range包含更多元素，那么第一range被视为小于第二range。
+
+**总结：该算法的功能和C语言中字符串比较一样，参考C语言字符串比较大小理解上述**
+
+**注：该算法不需要两个range有相同元素个数。equal等要求两个range长度必须相同**
+
+该算法有两个版本，关于两个版本的区别参考equal，此处不再赘述。
+
+该算法测试参考compare_range.h。
+
+### 最大值/最小值
+
+这两个算法挺常见和简单，此处不介绍该两个算法。
 
 
 
