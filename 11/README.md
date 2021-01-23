@@ -5,8 +5,11 @@
 ## 线性查找
 
 ### find
+
+```
 template <typename InputIterator, typename EqualityComparable>
 InputIterator find(InputIterator first, InputIterator last, const EqualityComparable& value);
+```
 
 算法find会在iterators range内执行线性查找，寻找指定之值value。
 
@@ -16,8 +19,10 @@ InputIterator find(InputIterator first, InputIterator last, const EqualityCompar
 
 ### find_if
 
+```
 template <typename InputIterator, typename Predicate>
 InputIterator find_if(InputIterator first, InputIterator last, Predicate pred);
+```
 
 如同find，算法find_if能在iterators range内进行线性查找。两者的差别在于find_if更为一般化。它查找满足某种条件的元素。
 
@@ -29,11 +34,13 @@ find_if应用场景：由于find只能测试object的相等性，因此针对某
 
 ### adjacent_find
 
+```
 template <typename ForwardIterator>
 ForwardIterator adjacent_find(ForwardIterator first, ForwardIterator last);
 
 template <typename ForwardIterator, typename BinaryPredicate>
 ForwardIterator adjacent_find(ForwardIterator first, ForwardIterator last, BinaryPredicate binary_pred);
+```
 
 如同find，adjacent_find算法会在iterators range中进行查找。两者之间的差别在于find是针对单个元素的查找，adjacent_find是针对两个相邻元素查找。
 
@@ -45,11 +52,13 @@ adjacent_find有两个版本。版本一查找两个相等的相邻元素，版�
 
 ### find_first_of
 
+```
 template <typename InputIterator, typename ForwardIterator>
 InputIterator find_first_of(InputIterator first1, InputIterator last1, ForwardIterator first2, ForwardIterator last2);
 
 template <typename InputIterator, typename ForwardIterator, typename BinaryPredicate>
 InputIterator find_first_of(InputIterator first1, InputIterator last1, ForwardIterator first2, ForwardIterator last2, BinaryPredicate);
+```
 
 该算法极类似find。会在input iterator range内进行线性查找。两者之间的区别在于find查找某个特定值，而find_first_of可查找任何数量的值。
 
@@ -67,11 +76,13 @@ find_first_of有两个版本，差别在于比较元素相等的方式。 第一
 
 ### search
 
+```
 template <typename ForwardIterator1, typename ForwardIterator2>
 orwardIterator1 search(orwardIterator1 first1, orwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2);
 
 template <typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
 orwardIterator1 search(orwardIterator1 first1, orwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate binary_pred);
+```
 
 该算法和find、find_if类似，可以在某个区间进行查找。区别在于find与find_if查找单个元素，而search查找的是整个子区间。
 
@@ -85,11 +96,13 @@ search算法试图在[first1, last1)内寻找[first2, last2).也就是说search�
 
 ### find_end
 
+```
 template <typename ForwardIterator1, typename ForwardIterator2>
 orwardIterator1 search(orwardIterator1 first1, orwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2);
 
 template <typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
 orwardIterator1 search(orwardIterator1 first1, orwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate binary_pred);
+```
 
 find_end更精确的名字应该叫search_end.
 
@@ -101,11 +114,13 @@ find_end的返回值与search相似，此处不赘述。
 
 ### search_n
 
+```
 template <typename ForwardIterator, typename Integer, typename T>
 ForwardIterator search_n(ForwardIterator first, ForwardIterator last, Integer count, const T& value);
 
 template <typename ForwardIterator, typename Integer, typename T, typename BinaryPredicate>
 ForwardIterator search_n(ForwardIterator first, ForwardIterator last, Integer count, const T& value, BinaryPredicate binary_pred);
+```
 
 该算法查找[first, last)之中由count个相邻元素形成的子序列，其中所有元素都等于value。它返回一个iterator，指向这个子序列的起始点。 如果该子序列不存在，则返回last.
 
@@ -117,9 +132,11 @@ ForwardIterator search_n(ForwardIterator first, ForwardIterator last, Integer co
 
 ### count
 
+```
 template <typename InputIterator, typename EqualityComparable>
 typename iterator_traits<InputIterator>::difference_type
 count(InputIterator first, InputIterator last, const EqualityComparable& value);
+```
 
 该算法可以计算[first, last)中与value相等的元素个数。
 
@@ -127,9 +144,11 @@ count(InputIterator first, InputIterator last, const EqualityComparable& value);
 
 ### count_if
 
+```
 template <typename InputIterator, typename Predicate>
 typename iterator_traits<InputIterator>::difference_type
 count(InputIterator first, InputIterator last, Predicate pred);
+```
 
 该算法与count极相似，但更一般化。
 
@@ -141,11 +160,13 @@ count(InputIterator first, InputIterator last, Predicate pred);
 
 ### equal
 
+```
 template <typename InputIterator1, typename InputIterator2>
 bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2);
 
 template <typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
 bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryPredicate binary_pred);
+```
 
 该算法比较区间[first1, last1)和[first2, first2 + (last1 - first1))的元素，两者一一比较，如果均相等，则equal返回true，否则返回false。
 
@@ -157,6 +178,7 @@ bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, B
 
 ### mismatch
 
+```
 template <typename InputIterator1, typename InputIterator2>
 pair<InputIterator1, InputIterator2>
 mismatch(InputIterator1 first1, InputIterator1 last2, InputIterator2 first2);
@@ -164,6 +186,7 @@ mismatch(InputIterator1 first1, InputIterator1 last2, InputIterator2 first2);
 template <typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
 pair<InputIterator1, InputIterator2>
 mismatch(InputIterator1 first1, InputIterator1 last2, InputIterator2 first2, BinaryPredicate binary_pred);
+```
 
 该算法返回[first1, last1)与[first2, first2 + last1-first1)之间第一个**元素值不等**的位置。 该位置由[first1, last1)的一个iterator和[first2, first2 + last1-first1)的一个iterator构成，mismatch以一个pair的形式返回这该位置。
 
@@ -173,11 +196,13 @@ mismatch(InputIterator1 first1, InputIterator1 last2, InputIterator2 first2, Bin
 
 ### lexicographical_compare
 
+```
 template <typename InputIterator1, typename InputIterator2>
 bool lexicographical_compare(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2);
 
 template <typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
 bool lexicographical_compare(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2, BinaryPredicate binary_pred);
+```
 
 该算法以字典排序法比较两个区间。
 
