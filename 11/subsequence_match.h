@@ -85,5 +85,4 @@ void test_search_n() {
     int A[N] = {1, 2, 1, 1, 3, -3, 1, 1, 1,1};
     ts.lookup(A, A+N, 1, 4);
     ts.look_nosign(A, A+N, 1, 3);
-
 }

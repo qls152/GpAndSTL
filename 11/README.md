@@ -113,5 +113,53 @@ ForwardIterator search_n(ForwardIterator first, ForwardIterator last, Integer co
 
 关于search_n的测试可参考subsequence_match.h。
 
+## 计算元素个数
+
+### count
+
+template <typename InputIterator, typename EqualityComparable>
+typename iterator_traits<InputIterator>::difference_type
+count(InputIterator first, InputIterator last, const EqualityComparable& value);
+
+该算法可以计算[first, last)中与value相等的元素个数。
+
+该算法测试可参考count.h。
+
+### count_if
+
+template <typename InputIterator, typename Predicate>
+typename iterator_traits<InputIterator>::difference_type
+count(InputIterator first, InputIterator last, Predicate pred);
+
+该算法与count极相似，但更一般化。
+
+该算法计算[first, last）内满足某种条件的元素个数。某种条件指的是**pred(*i)为true**。
+
+关于count_if的测试可以参考count.h。
+
+## 比较两个Ranges
+
+### equal
+
+template <typename InputIterator1, typename InputIterator2>
+bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2);
+
+template <typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
+bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryPredicate binary_pred);
+
+该算法比较区间[first1, last1)和[first2, first2 + (last1 - first1))的元素，两者一一比较，如果均相等，则equal返回true，否则返回false。
+
+该算法有两个版本，第一个版本采用operator==来比较元素，第二版本采用外界提供的函数对象binary_pred。
+
+针对第二版本，当且仅当[first1, last1)中的每一个iterator i都满足binary_pred(*i, *(first2 + i - first1))为true，则第二版本返回true。
+
+关于该算法测试可参考compare_range.h
+
+
+
+
+
+
+
 
 
