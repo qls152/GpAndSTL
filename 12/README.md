@@ -153,5 +153,99 @@ OutputIterator replace_copy_if(InputIterator first, InputIterator last, OutputIt
 
 算法测试可参考replace.h。
 
+## 填充整个区间
+
+### fill
+
+```
+template <typename ForwardIterator, typename T>
+void fill(ForwardIterator first, ForwardIterator last, const T& value);
+```
+
+对于区间[first, last)中的每个iterator i, 执行*i= value.
+
+该算法测试参考fill.h。
+
+### fill_n
+
+```
+template <typename OutputIterator, typename Size, typename T> 
+OutputIterator fill_n(OutputIterator first, Size n, const T& value);
+```
+
+该算法针对[first, first+n)中的每个iterator i，执行*i = value. 返回值为first + n.
+
+该算法测试可参考fill.h中的fill.
+
+### generate
+
+```
+template <typename ForwardIterator, typename Generator>
+void generate(ForwardIterator first, ForwardIterator last, Generator gen);
+```
+
+该算法会调用gen(一个不需要任何形参的函数对象)，并将结果赋值给[first, last)中的每个元素。也即，针对[first, last)中的每个iterator i, *i = gen()。
+
+该算法测试参考fill.h。
+
+### generate_n
+
+```
+template <typename OutputIterator, typename Size, typename Generator> 
+OutputIterator fill_n(OutputIterator first, Size n, Generator gen);
+```
+该算法可参考fill_n和generate， 此处不再赘述。
+
+## 移除元素
+
+### remove
+
+```
+template <typename ForwardIterator, typename T>
+ForwardIterator remove(ForwardIterator first, ForwardIterator last, const T& value);
+```
+
+该算法会将数值value从[first, last)中移除。
+
+**注：remove并不会改变区间大小，也并不会真正删除一个元素。该算法会返回一个iterator new_last, 使得[first, new_last)内的元素都不等于value。之所以说remove是稳定的是指区间左端的元素的相对位置不变。**
+
+**[new_last, last)中的iterators仍然可提领，但是指向之值是未定义的。**
+
+该算法测试用例参考remove.h。
+
+### remove_if
+
+```
+template <typename ForwardIterator, typename Predicate>
+ForwardIterator remove_if(ForwardIterator first, ForwardIterator last, Predicate pred);
+```
+
+该算法移除每一个使**pred返回true**的元素。该算法的功能和解释可参考remove。
+
+该算法测试参考remove.h。
+
+### remove_copy
+
+```
+template <typename InputIterator, typename OutputIterator, typename T>
+OutputIterator remove_copy(InputIterator first, InputIterator last, OutputIterator result, const T& value);
+```
+
+该算法相当于先remove 然后copy。
+
+该算法测试可参考remove.h。
+
+### remove_copy_if
+
+```
+template <typename InputIterator, typename OutputIterator, typename Predicate>
+OutputIterator remove_copy(InputIterator first, InputIterator last, OutputIterator result, Predicate pred);
+```
+
+该算法可参考remove_if和remove_copy理解其功能。
+
+省略该算法测试，可参考remove_if。
+
+### unique
 
 
