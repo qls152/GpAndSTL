@@ -107,4 +107,51 @@ transform有两个版本。第一版本将unary function作用于单一输入区
 
 关于该算法测试，可参考swap.h。
 
+## 替换元素
+
+```
+template <typename ForwardIterator, typename T>
+void replace(ForwardIterator first, ForwardIterator last, const T& old_value, const T& new_value);
+```
+
+该算法会遍历range中的每个元素，凡是old_value出现之处便用new_value 替换。 与old_value不相等的元素不受影响。
+
+该算法测试可参考replace.h。
+
+### replace_if
+
+```
+template <typename ForwardIterator, typename Predicate, typename T>
+void replace_if(ForwardIterator first, ForwardIterator last, Predicate pred, const T& new_value);
+```
+
+该算法是replace的一般化版本。他会遍历range中的每个元素，将每一个**导致pred返回true**的元素替换为new_value. 返回false的元素不受影响。
+
+该算法测试参考replace.h。
+
+### replace_copy
+
+```
+template <typename InputIterator, typename OutputIterator, typename T>
+OutputIterator replace_if(InputIterator first, InputIterator last, OutputIterator result, const T& old_value, const T& new_value);
+```
+
+该算法将[first, last)的元素复制到[result, result + last -first)中， 复制过程中以new_value取代old_value。[first, last)不会被改动。
+
+replace_copy相当于先copy再replace.
+
+该算法测试参考replace.h。
+
+### replace_copy_if
+
+```
+template <typename InputIterator, typename OutputIterator, typename Predicate, typename T>
+OutputIterator replace_copy_if(InputIterator first, InputIterator last, OutputIterator result, Predicate pred, const T& new_value);
+```
+
+该算法可参考replace_if和replace_copy，此处不再赘述。
+
+算法测试可参考replace.h。
+
+
 
