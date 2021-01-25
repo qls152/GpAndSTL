@@ -4,6 +4,7 @@
 #include "fill.h"
 #include "remove.h"
 #include "reverse.h"
+#include "partiton.h"
 
 int main() {
 //    test_copy_backward();
@@ -23,7 +24,9 @@ int main() {
 //    test_unique();
 //    test_reverse_copy();
 //    test_rotate();
-    test_next_permutation();
+//    test_next_permutation();
+//    test_partition();
+    test_random_shuffle();
 
     return 0;
 }

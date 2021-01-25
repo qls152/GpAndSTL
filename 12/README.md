@@ -351,3 +351,72 @@ bool prev_permutation(BidirectionalIterator first, BidirectionalIterator last, S
 该算法的功能和使用与next_permutation很类似。区别在于，prev_permutation会返回该排列的前一个排序，若不存在前一个排列则该算法会将该顺序修改为最大的排序组合(依据递减顺序排列)，并返回false.
 
 关于该算法的测试，本处省略。
+
+## 分割
+
+### partition
+
+```
+template <typename BidirectionalIterator, typename Predicate>
+BidirectionalIterator partition(BidirectionalIterator first, BidirectionalIterator last, Predicate pred);
+```
+
+该算法会根据函数对象pred重新排列[first, last)的元素，使得满足pred的元素排在不满足pred的元素之前。
+
+**partition不保证元素原来的相对位置，即该算法不是稳定的**
+
+该算法的返回值为iterator middle. [first, middle)内的每个iterator i均满足
+pred(*i) 为true，[middle, last)内的每个iterator i使得 pred( *i)为false。
+
+该算法测试参考partition.h。
+
+### stable_partition
+
+```
+template <typename BidirectionalIterator, typename Predicate>
+BidirectionalIterator partition(BidirectionalIterator first, BidirectionalIterator last, Predicate pred);
+```
+
+该算法与partition类似，区别在于该算法是stable(稳定的，会保证原序列中元素的相对位置)。
+
+**partition的效率要高于stable_partition**
+
+关于该算法的测试可参考partition算法.
+
+## 随机重排与抽样
+
+### random_shuffle
+
+```
+template <typename RandomAccessIterator>
+void random_shuffle(RandomAccessIterator first, RandomAccessIterator last);
+
+template <typename RandomAccessIterator, typename RandomNumberGenerator>
+void random_shuffle(RandomAccessIterator first, RandomAccessIterator last, RandomNumberGenerator& rand);
+```
+
+该算法随机重排[first, last)的顺序，从N！种可能的元素排列中随机选出一种，此处N为last-first。
+
+该算法会产生一种均匀分布。
+
+该算法有两个版本，版本一使用内部乱数产生器，版本二使用Random Number Generator。
+
+该算法测试可参考partition.h。
+
+### random_sample
+
+```
+template <typename InputIterator, typename RandomAccessIterator>
+RandomAccessIterator random_sample(InputIterator first, InputIterator last, RandomAccessIterator ofirst, RandomAccessIterator olast);
+
+template <typename InputIterator, typename RandomAccessIterator, typename RandomNumberGenerator>
+RandomAccessIterator random_sample(InputIterator first, InputIterator last, RandomAccessIterator ofirst, RandomAccessIterator olast, RandomNumberGenerator& rand);
+```
+
+该算法会随机的将[first, last)内的一个取样结果复制到[ofirst, olast)中。他会复制n个元素，此处n为min(last-first, olast-ofirst)。 Input range内的元素最多在output range中出现一次，且该采样结果以均匀几率出现。
+
+返回值为ofirst + n.
+
+该算法非稳定。
+
+该算法并不存在与stl标准中。
