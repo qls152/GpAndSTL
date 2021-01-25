@@ -248,4 +248,106 @@ OutputIterator remove_copy(InputIterator first, InputIterator last, OutputIterat
 
 ### unique
 
+```
+template <typename ForwardIterator>
+ForwardIterator unique(ForwardIterator first, ForwardIterator last);
 
+template <typename ForwardIterator, typename BinaryPredicate>
+ForwardIterator unique(ForwardIterator first, ForwardIterator last, BinaryPredicate binary_pred);
+```
+
+该算法能够移除重复的元素。每当在[first, last)内遇到相连重复元素群出现， unique会移除该群中第一个以外的所有元素。
+
+**unique只移除相邻的重复元素，如果想要移除所有重复元素,需要和sort结合使用**
+
+同remove, unique并不改变区间大小，其会返回一个iterator new_last, 使得在[first, new_last)内的元素都不含相邻重复元素。
+
+unique有两个版本。版本一使用operator==比较相邻元素是否相等，版本二根据binary_pred判断相邻元素是否满足需求，若满足则移除。
+
+该算法测试参考remove.h。
+
+### unique_copy
+
+该算法使用可参考remove_copy和unique, 此处不再赘述。
+
+## 排列算法
+
+所谓range 元素的排列，就是将range中的元素重定顺序。 它不会删除或者增加任何元素，只是将元素值以不同的顺序放入input range内。
+
+### reverse
+
+```
+template <typename BidirectionalIterator>
+void reverse(BidirectionalIterator first, BidirectionalIterator last);
+```
+
+该算法会讲range的内容就地反转。即针对0 <= n <= (last-first)/2区间内的每个n，会将*（first+n)与 *(last-(n+1))互换。
+
+该算法测试用例此处省略.
+
+### reverse_copy
+
+```
+template <typename BidirectionalIterator, typename OutputIterator>
+OutputIterator reverse_copy(BidirectionalIterator first, BidirectionalIterator last, OutputIterator result);
+```
+
+该算法相当于先copy再reverse.
+
+关于该算法测试可参考reverse.h。
+
+### rotate
+
+```
+tempalte <typename ForwardIterator>
+inline void rotate(ForwardIterator first, ForwardIterator middle, ForwardIterator last);
+```
+
+该算法会将range内的元素加以旋转：针对0 <= n < last-first区间内的每一个n，他会将元素*(first+n)赋值给*(first+(n+last-middle)%(last-first))。
+
+用一种更简单的方式理解rotate:**它会将[first, middle)与[middle, last)互换。**
+
+该算法测试可参考reverse.h。
+
+### rotate_copy
+
+```
+tempalte <typename ForwardIterator, typename OutputIterator>
+OutputIterator rotate_copy(ForwardIterator first, ForwardIterator middle, ForwardIterator last, OutputIterator result);
+```
+
+该算法相当于先copy后rotate.
+
+关于该算法的测试省略。
+
+### next_permutation
+
+```
+template <typename BidirectionalIterator>
+bool next_permutation(BidirectionalIterator first, BidirectionalIterator last);
+
+template <typename BidirectionalIterator, typename StrictWeakOrdering>
+bool next_permutation(BidirectionalIterator first, BidirectionalIterator last, StrictWeakOrdering comp);
+```
+
+该算法会将元素所形成的range [first, last)转换为表格中下一个排列的顺序，也就是字典排序方式中的下一个较大排列顺序。
+
+**若存在下一个较大排序，则该算法会转换为该排列顺序并返回true，否则就将[first, last)转换成字典排序方式下最小排列顺序(以递增顺序排列),并返回false**
+
+关于该算法的两个版本，其区别在于元素的比较方式，此处不再赘述。
+
+该算法的测试可参考reverse.h。
+
+### prev_permutation
+
+```
+template <typename BidirectionalIterator>
+bool prev_permutation(BidirectionalIterator first, BidirectionalIterator last);
+
+template <typename BidirectionalIterator, typename StrictWeakOrdering>
+bool prev_permutation(BidirectionalIterator first, BidirectionalIterator last, StrictWeakOrdering comp);
+```
+
+该算法的功能和使用与next_permutation很类似。区别在于，prev_permutation会返回该排列的前一个排序，若不存在前一个排列则该算法会将该顺序修改为最大的排序组合(依据递减顺序排列)，并返回false.
+
+关于该算法的测试，本处省略。

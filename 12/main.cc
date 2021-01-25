@@ -3,6 +3,7 @@
 #include "replace.h"
 #include "fill.h"
 #include "remove.h"
+#include "reverse.h"
 
 int main() {
 //    test_copy_backward();
@@ -18,7 +19,11 @@ int main() {
 //    test_generate();
 //    test_remove();
 //    test_remove_if();
-    test_remove_copy();
+//    test_remove_copy();
+//    test_unique();
+//    test_reverse_copy();
+//    test_rotate();
+    test_next_permutation();
 
     return 0;
 }

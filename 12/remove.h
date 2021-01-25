@@ -38,3 +38,13 @@ void test_remove_copy() {
     std::vector<int> vec = {1, 1, 2, 4, 5};
     std::remove_copy(vec.begin(), vec.end(), std::ostream_iterator<int>(std::cout, " "), 1);
 }
+
+void test_unique() {
+    std::vector<int> vec = {1, 3, 3, 3, 2, 4, 2, 4};
+
+    // 本次测试仅仅测试版本二，关于版本一可参考版本二
+    auto new_last = std::unique(vec.begin(), vec.end(), [] (const auto& a, const auto& b) { return a == b;});
+
+    vec.erase(new_last, vec.end());
+    std::copy(vec.begin(), vec.end(), std::ostream_iterator<int>(std::cout, " "));
+}
