@@ -92,3 +92,89 @@ bool is_sorted(ForwardIterator first, ForwardIterator last, StrictWeakOrdering c
 两个版本之间的差别在于比较元素的方式.
 
 该算法测试可参考sort.h。
+
+## sorted ranges上的操作行为
+
+### 二分查找
+
+#### binary_search
+
+```
+template <typename ForwardIterator, typename StrictWeaklyComparable>
+bool binary_search(ForwardIterator first, ForwardIterator last, const StrictWeaklyComparable& value);
+
+template <typename ForwardIterator, typename T, typename StrictWeakOrdering>
+bool binary_search(ForwardIterator first, ForwardIterator last, const T& value, StrictWeakOrdering comp);
+```
+
+该算法是二分查找算法的一个版本。若在[first, last)中寻找到等价的元素value,则返回true,否则返回false.
+
+该算法的测试可参考binary_search.h。
+
+#### lower_bound
+
+
+```
+template <typename ForwardIterator, typename StrictWeaklyComparable>
+ForwardIterator lower_bound(ForwardIterator first, ForwardIterator last, const StrictWeaklyComparable& value);
+
+template <typename ForwardIterator, typename T, typename StrictWeakOrdering>
+ForwardIterator lower_bound(ForwardIterator first, ForwardIterator last, const T& value, StrictWeakOrdering comp);
+```
+
+该算法是二分查找算法的一个版本。该算法返回[first, last)中第一个等价于元素value的iterator。如果该元素不存在，则返回**假设该元素存在会出现的位置**。
+
+也即该算法会返回一个iterator，指向第一个**不小于value**的元素。
+
+该算法可参考binary_search.h。
+
+#### upper_bound
+
+```
+template <typename ForwardIterator, typename StrictWeaklyComparable>
+ForwardIterator upper_bound(ForwardIterator first, ForwardIterator last, const StrictWeaklyComparable& value);
+
+template <typename ForwardIterator, typename T, typename StrictWeakOrdering>
+ForwardIterator upper_bound(ForwardIterator first, ForwardIterator last, const T& value, StrictWeakOrdering comp);
+```
+
+该算法会返回**在不破坏顺序的情况下，可安插value的最后一个合适位置**
+
+**注：若value存在，该算法返回iterator指向value的下一个位置而非value自身**
+
+该算法测试用例可参考binary_search.h。
+
+#### equal_range
+
+```
+template <typename ForwardIterator, typename StrictWeaklyComparable>
+pair<ForwardIterator, ForwardIterator>  equal_range(ForwardIterator first, ForwardIterator last, const StrictWeaklyComparable& value);
+
+template <typename ForwardIterator, typename T, typename StrictWeakOrdering>
+pair<ForwardIterator, ForwardIterator> equal_range(ForwardIterator first, ForwardIterator last, const T& value, StrictWeakOrdering comp);
+```
+
+该算法是二分查找的一个版本。 该算法的返回值是一对iterators i和j，其中i是在不破坏顺序的前提下value可安插的第一个位置， j是在不破坏顺序的前提下value可安插的最后一个位置。
+
+该算法可理解为lower_bound和upper_bound的一个结合版本。
+
+该算法测试可参考binary_search.h。
+
+### 合并两个sorted ranges
+
+#### merge
+
+```
+template <typename InputIterator1, typename InputIterator2, typename OutputIterator>
+OutputIterator merge(InputIterator1 first1, InputIterator1 first2, InputIterator2 first2, InputIterator2 last2, OutputIterator result);
+
+template <typename InputIterator1, typename InputIterator2, typename OutputIterator, typename StrictWeakOrdering>
+OutputIterator merge(InputIterator1 first1, InputIterator1 first2, InputIterator2 first2, InputIterator2 last2, OutputIterator result,StrictWeakOrdering comp);
+```
+
+该算法将两个已排序的ranges合并为单一的已排序的range。
+
+该算法属于稳定算法。该算法的输出区间长度等于输入区间长度之和。
+
+该算法测试可参考binary_search.h。
+
